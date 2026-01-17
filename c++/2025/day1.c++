@@ -8,30 +8,34 @@
 std::vector rotations = {"L68","L30","R48" ,"L5" , "R60", "L55", "L1", "L99", "R14","L82"};
 
 
+void print_direction(std::string direction) {
+  std::cout << direction ;
+}
+
 int main() {
-const char* experimental = "Some string";
-  const char* result;
+
+  const char* rotation;
   int starting_point = 50;
-  int i = 0;
-  int j=0;
+  int natural_indx;
+  int inner_indx;
+  char left = 'L';
+  char right = 'R';
   //int length_of_rotations_list = sizeof...()
-  for (i; i<rotations.size(); i++)
+  for (natural_indx=0; natural_indx<rotations.size(); natural_indx++)
   {
-    result = rotations[i];
-    std::cout<< rotations[i] << ": " ;
-    std::cout << typeid(rotations[i]).name() << std::endl;
-  }
-  const char* empty = " ";
-  std::cout << "Type of empty: " <<typeid(*empty).name() << " whose value is " <<  empty << "whose length is " << strlen(empty) << "\n";
-  std::cout << "Type of experimental: " << typeid(experimental).name() << " whose value is " << experimental[2] << "\n";
-  std::cout << "What happens when we want the type of an index into of const char* " << typeid(experimental[0]).name() << std::endl;
-  
-  for(j; j<strlen(experimental); j++ ){
-   // std::cout << "array\n"
-    if(std::strcmp(experimental, empty)==0){
-      std::cout << experimental[j] <<std::endl;
-    }else{
-      std::cout << experimental[j] << std::endl;
+    rotation = rotations[natural_indx];
+    std::cout << rotation << ": ";
+    char direction = rotation[0];
+      if(direction == left){
+        print_direction("Left ");
+      }else {
+        print_direction("Right ");
+      }
+    for(inner_indx=1; inner_indx<strlen(rotation); inner_indx++){
+      std::cout << rotation[inner_indx];
+      if(inner_indx==strlen(rotation)-1){
+        std::cout << std::endl;
+      }
     }
   }
 
