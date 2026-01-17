@@ -36,17 +36,13 @@ int main() {
     rotation = rotations[natural_indx];
     std::cout << rotation << ": ";
     char direction = rotation[0];
-      
+  //  std::cout << "Lenght of rotation string: " << strlen(rotation)<< std::endl;
     for(inner_indx=1; inner_indx<strlen(rotation); inner_indx++){
-      //std::cout << rotation[inner_indx];
+//      std::cout << "Inner index: " << inner_indx  << "\nChar at index: " << rotation[inner_indx] << std::endl;
       //std::string character = std::string cpp_str(rotation[inner_indx]);
       value+=rotation[inner_indx];
 
-      if(inner_indx==strlen(rotation)-1){
-        
-        std::cout << std::endl;
-        value = "";
-      }
+      
       std::cout << "Value to adjust: " << value << std::endl;
       
       
@@ -54,6 +50,10 @@ int main() {
         print_direction("Left ");
       }else {
         print_direction("Right ");
+      }
+      if(inner_indx==strlen(rotation)-1){      
+        std::cout << std::endl;
+        value = "";
       }
     }
   }
