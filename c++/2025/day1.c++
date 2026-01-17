@@ -48,27 +48,30 @@ int main() {
       value+=rotation[inner_indx];
 
       std::cout << "Value to adjust: " << value << std::endl;
-      value_integer = std::stoi(value);
-
-      if(direction == left){
-        print_direction("Left ");
-        
-        starting_point = starting_point-value_integer;
-      }else {
-        print_direction("Right ");
-        starting_point = starting_point+value_integer;        
-      }
-      if (starting_point > boundary_vals.boundary1){
-        starting_point-=100;
-      }
-
+      
       if(inner_indx==strlen(rotation)-1){      
+        value_integer = std::stoi(value);
+
+        if(direction == left){
+          print_direction("Left ");
+          
+          starting_point = starting_point-value_integer;
+        }else {
+          print_direction("Right ");
+          starting_point = starting_point+value_integer;        
+        }
+        if (starting_point > boundary_vals.boundary1){
+          starting_point-=100;
+        }else if (starting_point < boundary_vals.boundary2){
+          starting_point+=100;
+        }
+         std::cout << "Current position " << starting_point << std::endl;
         std::cout << std::endl;
         value = "";
       }
 
     }
   }
-
+  std::cout << "Final value: " << starting_point << std::endl;
   return 0;
 }
