@@ -11,6 +11,7 @@ std::vector rotations = {"L68","L30","R48" ,"L5" , "R60", "L55", "L1", "L99", "R
 void print_direction(std::string direction) {
   std::cout << direction ;
 }
+// if left - else + at 100 or 0 reset?? 
 
 int main() {
 
@@ -18,6 +19,7 @@ int main() {
   int starting_point = 50;
   int natural_indx;
   int inner_indx;
+  char value; 
   char left = 'L';
   char right = 'R';
   //int length_of_rotations_list = sizeof...()
@@ -26,15 +28,21 @@ int main() {
     rotation = rotations[natural_indx];
     std::cout << rotation << ": ";
     char direction = rotation[0];
+      
+    for(inner_indx=1; inner_indx<strlen(rotation); inner_indx++){
+      std::cout << rotation[inner_indx];
+      //std::string character = std::string cpp_str(rotation[inner_indx]);
+      value += rotation[inner_indx];
+      if(inner_indx==strlen(rotation)-1){
+        
+        std::cout << std::endl;
+
+      }
+      std::cout << "Value to adjust: " << value;
       if(direction == left){
         print_direction("Left ");
       }else {
         print_direction("Right ");
-      }
-    for(inner_indx=1; inner_indx<strlen(rotation); inner_indx++){
-      std::cout << rotation[inner_indx];
-      if(inner_indx==strlen(rotation)-1){
-        std::cout << std::endl;
       }
     }
   }
