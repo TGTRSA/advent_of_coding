@@ -5,6 +5,11 @@
 #include <string>
 #include <vector>
 
+enum class Boundary{
+    UPPER,
+    LOWER,
+};
+
 struct Separators{
     char id_separator=',';
     char range_separator='-';
@@ -94,21 +99,32 @@ void valid_id(Boundaries boundaries) {
    
 }
 
+
 Boundaries get_boundary_conditions(std::string id_range){
-    Boundaries  conditions;
+    Boundaries  boundaries;
     std::string id_char;
     std::string boundary;
     int i=0;
-    while(i<id_range.size()-1){
-        id_char+=id_range[i];
-        if(id_range[i]!=separator.range_separator){
-            conditions.lower=std::stoi(id_char);
-        }else{
-            conditions.upper = std::stoi(id_char);
+    int choice = 0;
+
+    std::cout << "Getting boundary for range";
+    print_nl();
+    int range_len = id_range.size();
+
+    while (i < range_len) {
+        if (id_range[i] == separator.range_separator) {
+            boundaries.lower = std::stoi(id_char);
+            id_char = "";
+        } else {
+            id_char += id_range[i];
         }
-        i+=1;
+        i++;
     }
-    return conditions;
+
+    // Trigger the upper boundary after the loop
+    boundaries.upper = std::stoi(id_char);
+
+    return boundaries;
 }
 
 void loop_through_ranges(std::vector<std::string> ID_array) {
@@ -116,13 +132,13 @@ void loop_through_ranges(std::vector<std::string> ID_array) {
     for(int i=0; i<ID_array.size();i++)
     {
         range=ID_array[i];
-        for(int j=0;j<range.length();j++){
-            std::cout << "Current range " << range;
-            print_nl();
-            Boundaries boundary_conidtions = get_boundary_conditions(range);
-            std::cout << "Lower bound: " << boundary_conidtions.lower << std::endl << "Upper bound: " << boundary_conidtions.upper << std::endl;    
-            valid_id(boundary_conidtions);
-        }
+        
+        std::cout << "Current range " << range;
+        print_nl();
+        
+        Boundaries boundary_conidtions = get_boundary_conditions(range);
+        std::cout << "Lower bound: " << boundary_conidtions.lower << std::endl << "Upper bound: " << boundary_conidtions.upper << std::endl;    
+        valid_id(boundary_conidtions);
         range = " ";
     }
    
@@ -149,7 +165,7 @@ int main() {
     std::cout << "ID array: ";
     for(int i=0; i<ID_array.size();i++)
     {        
-        std::cout << ID_array[i];
+        std::cout << ID_array[i]<< ",";
     }
     
     print_nl();
