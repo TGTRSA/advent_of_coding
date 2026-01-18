@@ -57,20 +57,48 @@ bool is_even(int value){
 
 bool is_duplicate(std::string id_chunk,int id_length) {
     bool duplicate;
+    int half = id_length/2;
+    std::string set1;
+    std::string set2;
+    int set=1;
+    int j=0;
     if(id_length==2){
         return duplicate = check_first_two(id_chunk);
+    }else{
+        for(int i=0;i<2;i++){
+            if(set==1){
+                while(j<half){
+                    set1 +=id_chunk[j];
+                    j+=1;
+                }
+                j=0;
+                set=2;
+            }else if(set==2){
+                half=half*2;
+                while(j<half) {
+                    set2+=id_chunk[j];
+                    j+=1;
+                }
+            }
+            std::cout << "Set1: "<<set1 << " Set2: " << set2;
+            print_nl();
+            }
+
+        
+        return duplicate;
     }
 
+  
 }
 void valid_id(Boundaries boundaries) {
     int loop_int = 0; 
-    for(int i=boundaries.lower;i<boundaries.upper;i++){
+    for(int i=boundaries.lower;i<boundaries.upper+1;i++){
         std::string string_int = std::to_string(i);
         int id_length = string_int.length();
         if(is_even(id_length)){
             bool duplicate = is_duplicate(string_int,id_length);
-            if(duplicate==false){
-                std::cout << string_int << " is valid";
+            if(duplicate==true){
+                std::cout << string_int << " is not valid";
                 print_nl();
             }
         }
