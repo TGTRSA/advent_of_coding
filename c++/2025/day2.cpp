@@ -22,16 +22,16 @@ std::string string_chunk = "11-22,95-115,998-1012,1188511880-1188511890,222220-2
 
 bool compare_sets(std::string set1, std::string set2){
     if(set1==set2){
-        return true;
-    }else {
         return false;
+    }else {
+        return true;
     }
 }
 
 bool check_first_two(std::string id_chunk){
 
-    if(id_chunk[0]==id_chunk[1]){return true;} 
-    else{return false;}
+    if(id_chunk[0]==id_chunk[1]){return false;} 
+    else{return true;}
         
 }
 
@@ -85,7 +85,7 @@ void valid_id(Boundaries boundaries) {
         int id_length = string_int.length();
         if(is_even(id_length)){
             bool duplicate = is_valid(string_int,id_length);
-            if(duplicate==true){
+            if(duplicate==false){
                 std::cout << string_int << " is valid";
                 print_nl();
             }
