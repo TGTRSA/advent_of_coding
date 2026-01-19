@@ -22,7 +22,7 @@ struct Boundaries {
 
 
 Separators separator;
-std::vector<std::string> valid_ids;
+std::vector<std::string> invalid_ids;
 std::string string_chunk = "11-22,95-115,998-1012,1188511880-1188511890,222220-222224, 1698522-1698528,446443-446449,38593856-38593862,565653-565659,824824821-824824827,2121212118-2121212124";
 
 bool compare_sets(std::string set1, std::string set2){
@@ -86,6 +86,7 @@ bool is_duplicate(std::string id_chunk,int id_length) {
 
 void valid_id(Boundaries boundaries) {
     int loop_int = 0; 
+
     for(int i=boundaries.lower;i<boundaries.upper+1;i++){
         std::string string_int = std::to_string(i);
         int id_length = string_int.length();
@@ -93,11 +94,15 @@ void valid_id(Boundaries boundaries) {
             bool duplicate = is_duplicate(string_int,id_length);
             if(duplicate==true){
                 std::cout << string_int << " is not valid";
+                invalid_ids.push_back(string_int);
                 print_nl();
             }
         }
     }
-   
+   for(int indx=0;indx<invalid_ids.size();indx++){
+    std::cout << "Valid ids: " << invalid_ids[indx];
+   }
+   print_nl();
 }
 
 
