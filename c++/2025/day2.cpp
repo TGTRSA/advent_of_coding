@@ -27,15 +27,14 @@ std::string string_chunk = "11-22,95-115,998-1012,1188511880-1188511890,222220-2
 
 bool compare_sets(std::string set1, std::string set2){
     if(set1==set2){
-        return false;
-    }else {
         return true;
+    }else {
+        return false;
     }
 }
 
 bool check_first_two(std::string id_chunk){
-
-    if(id_chunk[0]==id_chunk[1]){
+    if(id_chunk[0]%id_chunk[1]==0){
         return true;
     }else{
         return false;
@@ -65,32 +64,26 @@ bool is_duplicate(std::string id_chunk,int id_length) {
     if(id_length==2){
         return duplicate = check_first_two(id_chunk);
     }else{
-        for(int i=0;i<2;i++){
-            if(set==1){
-                while(j<half){
-                    set1 +=id_chunk[j];
-                    j+=1;
-                }
-                j=0;
-                set=2;
-            }else if(set==2){
-                half=half*2;
-                while(j<half) {
+        while(j<half+1){
+            if(j!=half){
+                set1+=id_chunk[j];
+            }else if (j==half){
+                while (j<half*2) {
                     set2+=id_chunk[j];
                     j+=1;
                 }
             }
-            std::cout << "Set1: "<<set1 << " Set2: " << set2;
-            print_nl();
-	    duplicate = compare_sets(set1, set2);
-            }
-
-        
-        return duplicate;
+            j+=1;
+        }
+            
     }
+        std::cout << "Set1: "<<set1 << " Set2: " << set2;
+        print_nl();
+        duplicate = compare_sets(set1, set2);
+    
+        return duplicate;
+}  
 
-  
-}
 void valid_id(Boundaries boundaries) {
     int loop_int = 0; 
     for(int i=boundaries.lower;i<boundaries.upper+1;i++){
