@@ -100,7 +100,7 @@ void valid_id(Boundaries boundaries) {
         }
     }
    for(int indx=0;indx<invalid_ids.size();indx++){
-    std::cout << "Valid ids: " << invalid_ids[indx];
+    std::cout << "Invalid ids: " << invalid_ids[indx] << " " ;
    }
    print_nl();
 }
