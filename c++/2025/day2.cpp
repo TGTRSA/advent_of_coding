@@ -82,6 +82,7 @@ bool is_duplicate(std::string id_chunk,int id_length) {
             }
             std::cout << "Set1: "<<set1 << " Set2: " << set2;
             print_nl();
+	    duplicate = compare_sets(set1, set2);
             }
 
         
