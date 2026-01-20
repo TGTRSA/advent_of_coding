@@ -5,6 +5,8 @@
 #include <string>
 #include <vector>
 
+
+
 enum class Boundary{
     UPPER,
     LOWER,
@@ -86,7 +88,8 @@ bool is_duplicate(std::string id_chunk,int id_length) {
 
 void valid_id(Boundaries boundaries) {
     int loop_int = 0; 
-
+    std::string invalid_id;
+    int complete_value=0;
     for(int i=boundaries.lower;i<boundaries.upper+1;i++){
         std::string string_int = std::to_string(i);
         int id_length = string_int.length();
@@ -99,9 +102,14 @@ void valid_id(Boundaries boundaries) {
             }
         }
     }
-   for(int indx=0;indx<invalid_ids.size();indx++){
-    std::cout << "Invalid ids: " << invalid_ids[indx] << " " ;
+    
+    std::cout <<"Invalid ids: " ; 
+    for(int indx=0;indx<invalid_ids.size();indx++){
+        invalid_id=invalid_ids[indx];
+        std::cout << invalid_id << " " ;
+        complete_value+=std::stoi(invalid_id);
    }
+   std::cout << "Added value of all invalid ids: " << complete_value;
    print_nl();
 }
 
