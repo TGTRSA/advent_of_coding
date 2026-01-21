@@ -46,15 +46,26 @@ int get_second_largest(std::vector<int> bank ,LargestVals& largest_vals){
     return largest_vals.second_largest;
 }
 
-int get_largest(std::vector<int> bank, int battery1, int bank_size) {
-    int largest;
-    for(int battery_indx=0;battery_indx<bank_size-1;battery_indx++){
-        int battery2 = bank[battery_indx];
-        if(battery1>battery2){
-            largest = battery1;
-        }else if(battery2 >= battery1) {
-            largest = battery2;
+int get_largest(std::vector<int> bank, int bank_size) {
+    int largest=0;
+    std::cout << "Iterating through bank for largest";
+    print_nl();
+    
+    for(int battery_indx=0;battery_indx<bank_size-1;battery_indx++){        
+        int  outer_loop_val = bank[battery_indx];
+        for(int j=1;j<bank_size-1;j++){
+            int inner_loop_value = bank[j];
+            if(outer_loop_val>=inner_loop_value ){
+                if(outer_loop_val>=largest){
+                    largest=outer_loop_val;
+                }
+            }else if (inner_loop_value>=largest){
+                largest=inner_loop_value;
+            }
+            break;
         }
+        std::cout << "Current value: " << outer_loop_val << " Largest: " <<  largest;
+        print_nl();
     }
     return largest;
 }
@@ -65,23 +76,29 @@ void find_largest() {
     
     LargestVals battery_vals;
     std::cout << "Array: ";
+    int while_loop_int =0;
     for(int i=0; i<battery_cells.size();i++) {
         bank = battery_cells[i]; 
         int bank_size= bank.size();
-        std::cout << bank[i] << ", ";
-        print_nl();
+
         for(int j=0;j<bank_size;j++){
             int battery1 = bank[j];
             
-            battery_vals.largest = get_largest(bank,battery1,bank_size);
+            while(while_loop_int<bank_size){
+                std::cout << bank[while_loop_int] << ", ";
+                while_loop_int+=1;
+            }
+            
+            battery_vals.largest = get_largest(bank,bank_size);
             battery_vals.second_largest = get_second_largest(bank,battery_vals);
 
             if(bank[bank_size-1] > battery_vals.largest ){
                 battery_vals.second_largest = bank[bank_size-1];
             }
         }
-        std::cout << "Largest val: " << std::endl << "Second largest: ";
-        print_nl();
+        //print_nl();
+        //std::cout << "Largest val: " << battery_vals.largest << std::endl << "Second largest: " << battery_vals.second_largest;
+        //print_nl();
     }
 
 }
