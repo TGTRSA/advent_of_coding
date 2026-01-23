@@ -1,15 +1,16 @@
 #include <map>
 #include <vector>
 #include <iostream>
-
+#include <string>
 struct LargestVals {
     int largest;
     int second_largest;
 
-    int add() const {
-        return largest+second_largest;
-    }
 };
+
+std::map<std::string, int> largest; 
+std::vector<int> largest_vals_check= {98,89,78,92};
+std::vector<int> values_array;
 
 std::vector<std::vector<int>> battery_cells={
     {9,8,7,6,5,4,3,2,1,1,1,1,1,1,1},
@@ -23,6 +24,14 @@ std::map<std::string, std::pair<int, int>> largest_map;
 
 void print_nl(){
     std::cout << std::endl;
+}
+
+int add_values(std::vector<int> values){
+    int result=0;
+    for(int i=0;i<values.size();i++){
+        result+=values[i];
+    }
+    return result;
 }
 
 void print_array(std::vector<int>  array){
@@ -46,10 +55,11 @@ int get_second_largest(std::vector<int> bank ,LargestVals& largest_vals){
     return largest_vals.second_largest;
 }
 
-int get_largest(std::vector<int> bank, int bank_size) {
+std::map<std::string,std::pair<int,int>> get_largest(std::vector<int> bank, int bank_size) {
     int largest=0;
-    std::cout << "Iterating through bank for largest";
-    print_nl();
+    int largest_position;
+    //std::cout << "Iterating through bank for largest";
+    //print_nl();
     
     for(int battery_indx=0;battery_indx<bank_size-1;battery_indx++){        
         int  outer_loop_val = bank[battery_indx];
@@ -58,53 +68,56 @@ int get_largest(std::vector<int> bank, int bank_size) {
             if(outer_loop_val>=inner_loop_value ){
                 if(outer_loop_val>=largest){
                     largest=outer_loop_val;
+                    largest_position = j;
                 }
             }else if (inner_loop_value>=largest){
                 largest=inner_loop_value;
+                largest_position = j;
             }
             break;
         }
-        std::cout << "Current value: " << outer_loop_val << " Largest: " <<  largest;
-        print_nl();
     }
-    return largest;
+    largest_map.insert({"largest", {largest, largest_position}});
+    return largest_map;
 }
 
+void check_values(std::vector<int> combined_values){
+    for(int i=0;i<largest_vals_check.size();i++){
+        if(combined_values[i]==largest_vals_check[i]){
+            std::cout << combined_values[i] << " is correct" << std::endl;
+        }
+    }
+}
 
-void find_largest() {
-    std::vector<int> bank;
+std::vector<int> find_largest() {
     
+    std::vector<int> bank;
+    std::string string_value = "";
     LargestVals battery_vals;
     std::cout << "Array: ";
     int while_loop_int =0;
     for(int i=0; i<battery_cells.size();i++) {
         bank = battery_cells[i]; 
         int bank_size= bank.size();
-
-        for(int j=0;j<bank_size;j++){
-            int battery1 = bank[j];
-            
-            while(while_loop_int<bank_size){
+        while(while_loop_int<bank_size){
                 std::cout << bank[while_loop_int] << ", ";
                 while_loop_int+=1;
             }
-            
-            battery_vals.largest = get_largest(bank,bank_size);
-            battery_vals.second_largest = get_second_largest(bank,battery_vals);
+        for(int j=0;j<bank_size;j++){
+            int battery1 = bank[j];
 
-            if(bank[bank_size-1] > battery_vals.largest ){
-                battery_vals.second_largest = bank[bank_size-1];
-            }
         }
-        //print_nl();
-        //std::cout << "Largest val: " << battery_vals.largest << std::endl << "Second largest: " << battery_vals.second_largest;
-        //print_nl();
-    }
 
+    }  
+    return values_array;
 }
 
 int main() {
     std::cout << "Hello day3" << std::endl;
-    find_largest();
+    std::vector<int> combined__values = find_largest();
+    
+    check_values(combined__values);
+    int rs = add_values(combined__values);
+    std::cout << "Final result: " << rs<< std::endl;
     return 0;
 }
