@@ -8,6 +8,11 @@ struct LargestVals {
 
 };
 
+struct LargestInfo {
+    int value;
+    int position;
+};
+
 std::map<std::string, int> largest; 
 std::vector<int> largest_vals_check= {98,89,78,92};
 std::vector<int> values_array;
@@ -77,6 +82,7 @@ std::map<std::string,std::pair<int,int>> get_largest(std::vector<int> bank, int 
             break;
         }
     }
+    std::cout << "Largest value before map: " << largest<< std::endl;
     largest_map.insert({"largest", {largest, largest_position}});
     return largest_map;
 }
@@ -94,22 +100,18 @@ std::vector<int> find_largest() {
     std::vector<int> bank;
     std::string string_value = "";
     LargestVals battery_vals;
+    battery_vals.second_largest = 0;
     std::cout << "Array: ";
     int while_loop_int =0;
-    for(int i=0; i<battery_cells.size();i++) {
-        bank = battery_cells[i]; 
-        int bank_size= bank.size();
-        while(while_loop_int<bank_size){
-                std::cout << bank[while_loop_int] << ", ";
-                while_loop_int+=1;
-            }
-        for(int j=0;j<bank_size;j++){
-            int battery1 = bank[j];
-
+    
+    for(int i=0;i<battery_cells.size();i++){
+        std::vector<int> bank_line = battery_cells[i];
+        int bank_line_len  = bank_line.size();
+        for(int j=0;j<bank_line_len;j++){
+            
         }
+    }
 
-    }  
-    return values_array;
 }
 
 int main() {
