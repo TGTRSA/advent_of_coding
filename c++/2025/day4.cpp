@@ -11,6 +11,10 @@ struct Counter {
     void print() {
         std::cout << "Current counter value: " << val << std::endl;
     }
+
+    void add(int x) {
+        val+=x;
+    }
 };
 
 std::vector<std::string> toilet_paper_array = {
@@ -37,7 +41,7 @@ void recognise_symbols() {
         for(int j=0;j<line.size();j++){
             if(line[j]=='@'){
                 std::cout << "@ found"<< std::endl;
-                counter.val +=1;
+                counter.add(1);
             }else if(line[j]=='.'){
                 counter.print();
 
