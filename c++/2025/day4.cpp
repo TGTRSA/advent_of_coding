@@ -3,6 +3,16 @@
 #include <vector>
 #include <map>
 
+struct Counter {
+    int val = 0;
+    void reset () {
+        val=0;
+    }
+    void print() {
+        std::cout << "Current counter value: " << val << std::endl;
+    }
+};
+
 std::vector<std::string> toilet_paper_array = {
     "..@@.@@@@.",
     "@@@.@.@.@@",
@@ -18,7 +28,8 @@ std::vector<std::string> toilet_paper_array = {
 
 
 void recognise_symbols() {
-    int counter;
+    Counter counter;
+    std::cout << "Counter value: " <<  counter.val <<std::endl;
 
     for (int i=0; i<toilet_paper_array.size();i++){
         std::string line = toilet_paper_array[i];
@@ -26,8 +37,12 @@ void recognise_symbols() {
         for(int j=0;j<line.size();j++){
             if(line[j]=='@'){
                 std::cout << "@ found"<< std::endl;
+                counter.val +=1;
             }else if(line[j]=='.'){
+                counter.print();
+
                 std::cout << "Found ." << std::endl;
+                counter.reset();
             }
         }
     }
