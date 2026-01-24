@@ -17,8 +17,7 @@ std::vector<std::string> toilet_paper_array = {
 };
 
 
-int main() {
-    std::cout << "Hello day 4" << std::endl;
+void recognise_symbols() {
     int counter;
 
     for (int i=0; i<toilet_paper_array.size();i++){
@@ -27,9 +26,16 @@ int main() {
         for(int j=0;j<line.size();j++){
             if(line[j]=='@'){
                 std::cout << "@ found"<< std::endl;
+            }else if(line[j]=='.'){
+                std::cout << "Found ." << std::endl;
             }
         }
     }
+}
+
+int main() {
+    std::cout << "Hello day 4" << std::endl;
+    recognise_symbols();
 
     return 0;
 }
