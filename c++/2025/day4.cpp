@@ -39,13 +39,9 @@ std::vector<std::string> convert_to_vector(int line_len, std::string line){
     std::vector<std::string> new_array;
     std::string map;
         for(int j=0;j<line_len;j++){
-           if(line[j]=='@'){
-            map+="@";
-           }else if(line[j]=='.'){
-            map+=".";
-           }
+            std::string  l = std::to_string(line[j]);
+            new_array.push_back(l);
         }
-        new_array.push_back(map);
     return new_array;
 }
 
@@ -63,10 +59,10 @@ void recognise_symbols() {
         std::string line = toilet_paper_array[i];
         int line_len = toilet_paper_array[i].size();
         std::vector<std::string> char_array =  convert_to_vector(line_len, line);
-        
+        std::cout << "Array size " << char_array.size(); 
         for(int j=0;j<char_array.size();j++){
-            std::cout << "j is currently: " << j<<std::endl;
-            std::cout << char_array[j] << "\n";
+            std::cout << "j is currently: " << j <<std::endl;
+            //std::cout << char_array[j] << "\n";
             // Check up above i=0
             if(i!=0){
                 above = toilet_paper_array[i-1][j];
