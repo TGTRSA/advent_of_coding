@@ -1,3 +1,4 @@
+#include <cstring>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -56,8 +57,9 @@ std::vector<std::vector<char>> recognise_symbols() {
     std::vector<std::vector<char>> cross_map;
     std::vector<char> inner_map;
     char at_symbol = '@';
+    std::string string_at = "@";
     char x = 'X';
-
+    std::string dot = ".";
    // Convert to vector
     for(int i=0;i< toilet_paper_array.size();i++){
         std::string line = toilet_paper_array[i];
@@ -68,50 +70,47 @@ std::vector<std::vector<char>> recognise_symbols() {
             std::cout << "j is currently: " << j <<std::endl;
             //std::cout << char_array[j] << "\n";
             // Check up above i=0
-            if(i!=0){
+            if(char_array[j]==string_at){
+                if(i!=0){
                 above = toilet_paper_array[i-1][j];
                 std::string s = std::format("Checking above: toilet_paper_array[{0}][{1}]\n",i-1,j );
                 std::cout << s;
                 if(above==at_symbol){
                     // write to map
                     inner_map.push_back(x);
-                }else {
-                    inner_map.push_back('.');
                 }
             }            
-            // check below
-            if(i!=line_len-1){
-                below = toilet_paper_array[i+1][j];
-                std::string s = std::format("Checking below: toilet_paper_array[{0}][{1}]\n",i+1 , j);
-                std::cout << s;
-                if(below==at_symbol){
-                    inner_map.push_back(x);
-                }else {
-                    inner_map.push_back('.');
+                // check below
+                if(i!=line_len-1){
+                    below = toilet_paper_array[i+1][j];
+                    std::string s = std::format("Checking below: toilet_paper_array[{0}][{1}]\n",i+1 , j);
+                    std::cout << s;
+                    if(below==at_symbol){
+                        inner_map.push_back(x);
+                    }
                 }
-            }
-            // check right
-            if(j!=char_array.size()){
-                right = toilet_paper_array[i][j+1];
-                std::string s = std::format("Checking right: toilet_paper_array[{0}][{1}]\n",i , j+1);
-                std::cout << s;
-                if(below==at_symbol){
-                    inner_map.push_back(x);
-                }else {
-                    inner_map.push_back('.');
+                // check right
+                if(j!=char_array.size()){
+                    right = toilet_paper_array[i][j+1];
+                    std::string s = std::format("Checking right: toilet_paper_array[{0}][{1}]\n",i , j+1);
+                    std::cout << s;
+                    if(below==at_symbol){
+                        inner_map.push_back(x);
+                    }
                 }
-            }
-            // check left
-            if(j!=0){
-                left = toilet_paper_array[i][j-1];
-                std::string s = std::format("Checking left: toilet_paper_array[{0}][{1}]\n",i , j-1);
-                std::cout << s;
-                if(left==at_symbol){
-                    inner_map.push_back(x);
-                }else {
-                    inner_map.push_back('.');
+                // check left
+                if(j!=0){
+                    left = toilet_paper_array[i][j-1];
+                    std::string s = std::format("Checking left: toilet_paper_array[{0}][{1}]\n",i , j-1);
+                    std::cout << s;
+                    if(left==at_symbol){
+                        inner_map.push_back(x);
+                    }
                 }
+            }else if (char_array[j]==dot) {
+                inner_map.push_back('.');
             }
+            
             cross_map.push_back(inner_map);
         }
     }
@@ -124,8 +123,9 @@ int main() {
     for(int i=0;i<cross_map.size();i++) {
         std::vector<char> line = cross_map[i]; 
         for(int j=0; j<line.size();j++){
-            std::cout << line[j] << std::endl;
+            std::cout << line[j] ;
         }
+        //std::cout << std::endl;
         
     }
     return 0;
