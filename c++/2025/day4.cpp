@@ -123,7 +123,7 @@ int main() {
     std::vector<std::vector<char>> cross_map = recognise_symbols();
     for(int i=0;i<cross_map.size();i++) {
         std::vector<char> line = cross_map[i]; 
-        for(int j=0; j<line.size();i++){
+        for(int j=0; j<line.size();j++){
             std::cout << line[j] << std::endl;
         }
         
