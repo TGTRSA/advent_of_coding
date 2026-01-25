@@ -4,6 +4,7 @@
 #include <vector>
 #include <format>
 
+
 struct Counter {
     int val = 0;
     void reset () {
@@ -56,10 +57,12 @@ std::vector<std::vector<char>> recognise_symbols() {
     //std::cout << "Counter value: " <<  counter.val <<std::endl;
     std::vector<std::vector<char>> cross_map;
     std::vector<char> inner_map;
-    char at_symbol = '@';
-    std::string string_at = "@";
+    char  at_symbol ='@';
     char x = 'X';
-    std::string dot = ".";
+    char dot ='.';
+    
+
+
    // Convert to vector
     for(int i=0;i< toilet_paper_array.size();i++){
         std::string line = toilet_paper_array[i];
@@ -70,14 +73,14 @@ std::vector<std::vector<char>> recognise_symbols() {
             std::cout << "j is currently: " << j <<std::endl;
             //std::cout << char_array[j] << "\n";
             // Check up above i=0
-            if(char_array[j]==string_at){
+            if(char_array[j].compare("@")){
                 if(i!=0){
                 above = toilet_paper_array[i-1][j];
                 std::string s = std::format("Checking above: toilet_paper_array[{0}][{1}]\n",i-1,j );
                 std::cout << s;
                 if(above==at_symbol){
                     // write to map
-                    inner_map.push_back(x);
+                    counter.add(1);
                 }
             }            
                 // check below
@@ -86,7 +89,7 @@ std::vector<std::vector<char>> recognise_symbols() {
                     std::string s = std::format("Checking below: toilet_paper_array[{0}][{1}]\n",i+1 , j);
                     std::cout << s;
                     if(below==at_symbol){
-                        inner_map.push_back(x);
+                        counter.add(1);
                     }
                 }
                 // check right
@@ -95,7 +98,7 @@ std::vector<std::vector<char>> recognise_symbols() {
                     std::string s = std::format("Checking right: toilet_paper_array[{0}][{1}]\n",i , j+1);
                     std::cout << s;
                     if(below==at_symbol){
-                        inner_map.push_back(x);
+                        counter.add(1);
                     }
                 }
                 // check left
@@ -104,11 +107,16 @@ std::vector<std::vector<char>> recognise_symbols() {
                     std::string s = std::format("Checking left: toilet_paper_array[{0}][{1}]\n",i , j-1);
                     std::cout << s;
                     if(left==at_symbol){
-                        inner_map.push_back(x);
+                        counter.add(1);
                     }
                 }
-            }else if (char_array[j]==dot) {
-                inner_map.push_back('.');
+            }else if(char_array[j].compare(".")){
+                map+=".";
+            }
+            if(counter.val<4){
+                map+="X";
+            }else {
+                map+="@";
             }
             
             cross_map.push_back(inner_map);
