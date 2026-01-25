@@ -45,7 +45,7 @@ std::vector<std::string> convert_to_vector(int line_len, std::string line){
     return new_array;
 }
 
-void recognise_symbols() {
+std::vector<std::vector<char>> recognise_symbols() {
     Counter counter;
     std::string map;
     char above;
@@ -53,6 +53,10 @@ void recognise_symbols() {
     char left;
     char right;
     //std::cout << "Counter value: " <<  counter.val <<std::endl;
+    std::vector<std::vector<char>> cross_map;
+    std::vector<char> inner_map;
+    char at_symbol = '@';
+    char x = 'X';
 
    // Convert to vector
     for(int i=0;i< toilet_paper_array.size();i++){
@@ -68,8 +72,11 @@ void recognise_symbols() {
                 above = toilet_paper_array[i-1][j];
                 std::string s = std::format("Checking above: toilet_paper_array[{0}][{1}]\n",i-1,j );
                 std::cout << s;
-                if(toilet_paper_array[i][j]=='@'){
+                if(above==at_symbol){
                     // write to map
+                    inner_map.push_back(x);
+                }else {
+                    inner_map.push_back('.');
                 }
             }            
             // check below
@@ -77,27 +84,49 @@ void recognise_symbols() {
                 below = toilet_paper_array[i+1][j];
                 std::string s = std::format("Checking below: toilet_paper_array[{0}][{1}]\n",i+1 , j);
                 std::cout << s;
+                if(below==at_symbol){
+                    inner_map.push_back(x);
+                }else {
+                    inner_map.push_back('.');
+                }
             }
             // check right
             if(j!=char_array.size()){
                 right = toilet_paper_array[i][j+1];
-                std::string s = std::format("Checking below: toilet_paper_array[{0}][{1}]\n",i , j+1);
+                std::string s = std::format("Checking right: toilet_paper_array[{0}][{1}]\n",i , j+1);
                 std::cout << s;
+                if(below==at_symbol){
+                    inner_map.push_back(x);
+                }else {
+                    inner_map.push_back('.');
+                }
             }
             // check left
             if(j!=0){
                 left = toilet_paper_array[i][j-1];
-                std::string s = std::format("Checking below: toilet_paper_array[{0}][{1}]\n",i , j-1);
+                std::string s = std::format("Checking left: toilet_paper_array[{0}][{1}]\n",i , j-1);
                 std::cout << s;
+                if(left==at_symbol){
+                    inner_map.push_back(x);
+                }else {
+                    inner_map.push_back('.');
+                }
             }
+            cross_map.push_back(inner_map);
         }
     }
-
+    return cross_map;
 }
 
 int main() {
     std::cout << "Hello day 4" << std::endl;
-    recognise_symbols();
-
+    std::vector<std::vector<char>> cross_map = recognise_symbols();
+    for(int i=0;i<cross_map.size();i++) {
+        std::vector<char> line = cross_map[i]; 
+        for(int j=0; j<line.size();i++){
+            std::cout << line[j] << std::endl;
+        }
+        
+    }
     return 0;
 }
