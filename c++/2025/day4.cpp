@@ -86,7 +86,8 @@ std::vector<std::vector<std::string>> recognise_symbols() {
                 // check above
                 if(i!=0){
                     above = toilet_paper_array[i-1][j];
-                    std::string s = std::format("Checking above: toilet_paper_array[{0}][{1}]\n",i-1,j );
+                    std::cout <<" Checking above: ";
+                    std::string s = std::format("toilet_paper_array[{0}][{1}]\n",i-1,j );
                     std::cout << s;
                     if(above==at_symbol){
                         // write to map
@@ -97,7 +98,8 @@ std::vector<std::vector<std::string>> recognise_symbols() {
                 // check below
                 if(i!=line_len-1){
                     below = toilet_paper_array[i+1][j];
-                    std::string s = std::format("Checking below: toilet_paper_array[{0}][{1}]\n",i+1 , j);
+                    std::cout << "Checking below:";
+                    std::string s = std::format(" toilet_paper_array[{0}][{1}]\n",i+1 , j);
                     std::cout << s;
                     if(below==at_symbol){
                         counter.add(1);
@@ -106,14 +108,16 @@ std::vector<std::vector<std::string>> recognise_symbols() {
     
                 }
                 // bottom left
-                if(j>0 && i!=char_array.size()){
+                if(j>0 && i<char_array.size() - 1){
+                    std::cout << "Bottom left" << std::endl;
                     bottom_left_diagonal = toilet_paper_array[i+1][j-1];
                     if(bottom_left_diagonal==at_symbol){
                         counter.add(1);
                     }
                 }   
                 // bottom right
-                if(j<char_array.size() && i!=char_array.size() ){
+                if(j<char_array.size() && i<char_array.size()-1 ){
+                    std::cout << "Bottom right" <<  std::endl;
                     bottom_right_diagonal = toilet_paper_array[i+1][j+1];
                     if(bottom_right_diagonal==at_symbol){
                         counter.add(1);
@@ -121,7 +125,7 @@ std::vector<std::vector<std::string>> recognise_symbols() {
                 }
 
                 // top right
-                if(i!=0 && j<char_array.size()-1){
+                if(i>0 && j<char_array.size()-1){
                     top_right_diagonal = toilet_paper_array[i-1][j+1];
                     if (top_right_diagonal==at_symbol) {
                         counter.add(1);
