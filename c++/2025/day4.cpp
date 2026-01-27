@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <cstring>
 #include <iostream>
 #include <string>
@@ -33,13 +34,10 @@ std::vector<std::string> toilet_paper_array = {
 };
 
 
-void compose_map(Counter counter){
-    int number_of_rolls = 10;
-}
 
 std::vector<std::string> convert_to_vector(int line_len, std::string line){
     std::vector<std::string> new_array;
-    std::string map;
+    
     std::string l;
         for(int j=0;j<line_len;j++){
             l += line[j];
@@ -64,31 +62,27 @@ std::vector<std::vector<std::string>> recognise_symbols() {
     std::vector<std::vector<std::string>> cross_map;
     std::vector<std::string> inner_map;
     char  at_symbol ='@';
-    char x = 'X';
-    char dot ='.';
-    
-
 
    // Convert to vector
-    for(int i=0;i< toilet_paper_array.size();i++){
+    for(size_t i=0;i< toilet_paper_array.size();i++){
         std::string line = toilet_paper_array[i];
-        int line_len = toilet_paper_array[i].size();
+        size_t line_len = toilet_paper_array[i].size();
         std::vector<std::string> char_array =  convert_to_vector(line_len, line);
         std::string map;
 
         //std::cout << "Array size " << char_array.size(); 
-        for(int j=0;j<char_array.size();j++){
+        for(size_t j=0;j<char_array.size();j++){
             //std::cout << "j is currently: " << j <<std::endl;
             std::cout <<"Character " << char_array[j] << "\n";
 
             if(char_array[j]=="@"){
 
                 // check above
-                if(i!=0){
+                if(i>0){
                     above = toilet_paper_array[i-1][j];
                     std::cout <<" Checking above: ";
-                    std::string s = std::format("toilet_paper_array[{0}][{1}]\n",i-1,j );
-                    std::cout << s;
+                    //std::string s = std::format("toilet_paper_array[{0}][{1}]\n",i-1,j );
+                    //std::cout << s;
                     if(above==at_symbol){
                         // write to map
                         counter.add(1);
@@ -99,8 +93,8 @@ std::vector<std::vector<std::string>> recognise_symbols() {
                 if(i!=line_len-1){
                     below = toilet_paper_array[i+1][j];
                     std::cout << "Checking below:";
-                    std::string s = std::format(" toilet_paper_array[{0}][{1}]\n",i+1 , j);
-                    std::cout << s;
+                    //std::string s = std::format(" toilet_paper_array[{0}][{1}]\n",i+1 , j);
+                    //std::cout << s;
                     if(below==at_symbol){
                         counter.add(1);
                         counter.print();
@@ -108,7 +102,7 @@ std::vector<std::vector<std::string>> recognise_symbols() {
     
                 }
                 // bottom left
-                if(j>0 && i<char_array.size() - 1){
+                if(j>0 && i<toilet_paper_array.size() - 1){
                     std::cout << "Bottom left" << std::endl;
                     bottom_left_diagonal = toilet_paper_array[i+1][j-1];
                     if(bottom_left_diagonal==at_symbol){
@@ -116,11 +110,12 @@ std::vector<std::vector<std::string>> recognise_symbols() {
                     }
                 }   
                 // bottom right
-                if(j<char_array.size() && i<char_array.size()-1 ){
+                if(j!=char_array.size()-1 && i<toilet_paper_array.size()-1 ){
                     std::cout << "Bottom right" <<  std::endl;
                     bottom_right_diagonal = toilet_paper_array[i+1][j+1];
                     if(bottom_right_diagonal==at_symbol){
                         counter.add(1);
+                        counter.print();
                     }
                 }
 
@@ -129,17 +124,19 @@ std::vector<std::vector<std::string>> recognise_symbols() {
                     top_right_diagonal = toilet_paper_array[i-1][j+1];
                     if (top_right_diagonal==at_symbol) {
                         counter.add(1);
+                        counter.print();
                     }
                 }
                 //top left
-                if(j>0 && i!=0) {
+                if(j>0 && i>0) {
                     top_left_diagonal = toilet_paper_array[i-1][j-1];
                     if(top_left_diagonal==at_symbol){
                         counter.add(1);
+                        counter.print();
                     }
                 }
                 // check right
-                if(j<char_array.size()-1){
+                if(j!=char_array.size()-1){
                     right = toilet_paper_array[i][j+1];
                     
                     std::string s = std::format("Checking right: toilet_paper_array[{0}][{1}]\n",i , j+1);
@@ -168,7 +165,6 @@ std::vector<std::vector<std::string>> recognise_symbols() {
                 }
                 counter.reset();
             }else {
-
                 map+=".";
             }
             
@@ -183,9 +179,11 @@ std::vector<std::vector<std::string>> recognise_symbols() {
 int main() {
     std::cout << "Hello day 4" << std::endl;
     std::vector<std::vector<std::string>> cross_map = recognise_symbols();
-    for(int i=0;i<cross_map.size();i++) {
+    uint cross_map_len = cross_map.size();
+    for(uint i=0;i< cross_map_len ;i++) {
         std::vector<std::string> line = cross_map[i]; 
-        for(int j=0; j<line.size();j++){
+        uint line_len = line.size() ;
+        for(uint j=0; j<line_len;j++){
             std::cout << line[j] << " ";
         }
         std::cout << std::endl;
