@@ -18,6 +18,10 @@ struct Counter {
     void add(int x) {
         val+=x;
     }
+
+    int get_val() {
+        return val;
+    }
 };
 
 std::vector<std::string> toilet_paper_array = {
@@ -180,14 +184,17 @@ int main() {
     std::cout << "Hello day 4" << std::endl;
     std::vector<std::vector<std::string>> cross_map = recognise_symbols();
     uint cross_map_len = cross_map.size();
+    Counter new_counter; 
     for(uint i=0;i< cross_map_len ;i++) {
         std::vector<std::string> line = cross_map[i]; 
         uint line_len = line.size() ;
         for(uint j=0; j<line_len;j++){
             std::cout << line[j] << " ";
+           
         }
         std::cout << std::endl;
         
     }
+    std::cout << "There are: " << new_counter.get_val() << " X rolls";
     return 0;
 }
