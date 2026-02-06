@@ -1,10 +1,8 @@
 #include <vector>
 #include "useful_funcs.h"
+#include <map>
 
-struct Boundary {
-    int upper;
-    int lower;
-};
+std::map<std::string, std::vector<int>> boundary_map;
 
 std::vector<std::string> input_arr = {
     "3-5",
@@ -22,9 +20,23 @@ std::vector<std::string> input_arr = {
 
 
 void id_boundaries() {
-
-
-
+    int len_input = input_arr.size();
+    const char sep = '-';
+    for(int i=0;i<len_input;i++){
+        std::string arr_val = input_arr[i];
+        if(arr_val==" "){
+            break;
+        }
+        for(int j=0;j<arr_val.length();j++){
+            const char c = arr_val[j];
+            if(c==sep){
+                boundary_map["upper"].push_back(arr_val[j+1]);
+                break;
+            }else{
+                boundary_map["lower"].push_back(arr_val[j]); 
+            }
+        }
+    }
 }
 
 
