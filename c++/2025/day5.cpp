@@ -64,10 +64,17 @@ void valid_values(BoundaryInfo bounds_info) {
     std::cout<< "Values outside the ranges: "<<std::endl;
     int arr_len = input_arr.size();
     print_nl();
+    int map_index = 0;
     for(int i=bounds_info.sep_pos+1;i<arr_len;i++){
         std::cout << "i is: " << i;
         print_nl();
         std::cout << input_arr[i] << std::endl;
+        for(int k=0;k<bounds_info.boundary_map.size();k++){
+            std::cout << "Upper value at "<< k << bounds_info.boundary_map.at("upper")[k];
+            print_nl();
+            std::cout << "Lower value at "<< k << bounds_info.boundary_map.at("lower")[k];
+            print_nl();
+        }
     }
 }
 
