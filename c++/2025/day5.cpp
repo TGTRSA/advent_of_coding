@@ -28,9 +28,12 @@ std::vector<std::string> input_arr = {
 BoundaryInfo id_boundaries() {
    BoundaryInfo boundary_map;
     int len_input = input_arr.size();
-    const char sep = '-';
+    const char range_sep = '-';
+    int k=0;
     std::string lower_val_string;
     std::string upper_val_string;
+    int map_indx=0;
+    bool sep_found = false;
     for(int i=0;i<len_input;i++){
         std::string arr_val = input_arr[i];
         int string_length = arr_val.size();
@@ -41,24 +44,29 @@ BoundaryInfo id_boundaries() {
             boundary_map.sep_pos = i;
             return boundary_map;
         }
-        for(int j=0;j<string_length;j++){
-            const char c = arr_val[j];
-            std::cout << "Current char " << c <<" is it -? " <<std::endl;
-            if(c==sep){
-                std::string u_str(1, arr_val[j+1]);
-                std::string l_str(1, arr_val[j-1]);
-                int upper_val = std::stoi(u_str);
-                int lower_val = std::stoi(l_str);
-                std::cout << "The chars for this range are " << arr_val[j-1] << " and " << arr_val[j+1];
-                print_nl();
-                std::cout << "The int reps are " << lower_val;
-                std::cout <<  " and " << upper_val;
-                print_nl();
-                boundary_map.boundary_map["upper"].push_back(upper_val);
-                boundary_map.boundary_map["lower"].push_back(lower_val);
-                break;
+        while (k<string_length)
+        {
+            char c = arr_val[k];
+            if (arr_val[k]!=range_sep && sep_found==false) {
+                lower_val_string+=c;
+            }else{
+                sep_found=true;
+                
+                upper_val_string+= c;
             }
+            // std::string u_str(1, arr_val[j+1]);
+                    // std::string l_str(1, arr_val[j-1]);
+                    // int upper_val = std::stoi(u_str);
+                    // int lower_val = std::stoi(l_str);
+            k+=1;    
         }
+        int lower_val = std::stoi(lower_val_string);
+        int upper_val = std::stoi(upper_val_string);
+        boundary_map.boundary_map.at("upper")[map_indx] = upper_val;
+        boundary_map.boundary_map.at("lower")[map_indx] = lower_val;
+        lower_val_string = "";
+        upper_val_string = "";
+        map_indx+=1;
     }
     return boundary_map;
 }
