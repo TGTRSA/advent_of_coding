@@ -1,3 +1,4 @@
+#include <cstdio>
 #include <vector>
 #include "useful_funcs.h"
 #include <map>
@@ -28,6 +29,8 @@ BoundaryInfo id_boundaries() {
    BoundaryInfo boundary_map;
     int len_input = input_arr.size();
     const char sep = '-';
+    std::string lower_val_string;
+    std::string upper_val_string;
     for(int i=0;i<len_input;i++){
         std::string arr_val = input_arr[i];
         int string_length = arr_val.size();
@@ -63,16 +66,20 @@ BoundaryInfo id_boundaries() {
 void valid_values(BoundaryInfo bounds_info) {
     std::cout<< "Values outside the ranges: "<<std::endl;
     int arr_len = input_arr.size();
+    int boundary_map_len = bounds_info.boundary_map.at("upper").size();
     print_nl();
-    int map_index = 0;
+    // int map_index = 0;
     for(int i=bounds_info.sep_pos+1;i<arr_len;i++){
         std::cout << "i is: " << i;
         print_nl();
         std::cout << input_arr[i] << std::endl;
-        for(int k=0;k<bounds_info.boundary_map.size();k++){
-            std::cout << "Upper value at "<< k << bounds_info.boundary_map.at("upper")[k];
+
+        for(int k=0;k<boundary_map_len;k++){
+            printf("Upper value at %d is %d", k, bounds_info.boundary_map.at("upper")[k]);
+            // std::cout << "Upper value at "<< k << " " << bounds_info.boundary_map.at("upper")[k];
             print_nl();
-            std::cout << "Lower value at "<< k << bounds_info.boundary_map.at("lower")[k];
+            printf("Lower value at %d is %d", k,bounds_info.boundary_map.at("upper")[k]);
+            // std::cout << "Lower value at "<< k << " " << bounds_info.boundary_map.at("lower")[k];
             print_nl();
         }
     }
@@ -83,7 +90,8 @@ int main() {
     print_nl();
 
     BoundaryInfo bounds_info = id_boundaries();
-    std::cout << bounds_info.boundary_map.at("upper")[0];
+    printf("Map at 3 %d", bounds_info.boundary_map.at("upper")[3]);
+    // std::cout << bounds_info.boundary_map.at("upper")[3];
     print_nl();
     valid_values(bounds_info);
     print_nl();
