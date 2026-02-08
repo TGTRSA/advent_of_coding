@@ -33,6 +33,7 @@ BoundaryInfo id_boundaries() {
         int string_length = arr_val.size();
         std::cout << "Array val is: " << arr_val << std::endl;
         if(arr_val==" "){
+            boundary_map.sep_pos = i;
             return boundary_map;
         }
         for(int j=0;j<string_length;j++){
@@ -57,6 +58,13 @@ BoundaryInfo id_boundaries() {
     return boundary_map;
 }
 
+void valid_values(BoundaryInfo bounds_info) {
+    std::cout<< "Values outside the ranges: "<<std::endl;
+    int iterator_bound = input_arr.size()-bounds_info.sep_pos;
+    for(int i=bounds_info.sep_pos+1;i<iterator_bound;i++){
+        std::cout << input_arr[i] << std::endl;
+    }
+}
 
 int main() {
     std::cout << "Hello day 5";
@@ -64,6 +72,8 @@ int main() {
 
     BoundaryInfo bounds_info = id_boundaries();
     std::cout << bounds_info.boundary_map.at("upper")[0];
+    print_nl();
+    valid_values(bounds_info);
     print_nl();
 
     return 0;
