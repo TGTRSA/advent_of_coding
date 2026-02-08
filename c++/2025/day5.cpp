@@ -31,8 +31,9 @@ BoundaryInfo id_boundaries() {
     for(int i=0;i<len_input;i++){
         std::string arr_val = input_arr[i];
         int string_length = arr_val.size();
+        std::cout << "Array val is: " << arr_val << std::endl;
         if(arr_val==" "){
-            break;
+            return boundary_map;
         }
         for(int j=0;j<string_length;j++){
             const char c = arr_val[j];
