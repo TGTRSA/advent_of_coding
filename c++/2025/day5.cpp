@@ -47,16 +47,17 @@ std::vector<Boundary> id_boundaries() {
             boundary.sep_pos = i;
             return boundaries;
         }
-        printf("Size of string: %d", string_length);
+        printf("Size of string: %d\n", string_length);
         while (k<string_length)
         {
             char c = arr_val[k];
-            printf("Current char: %c\n", c);
+            // printf("k value is : %d\n" , k);
+            // printf("Current char: %c\n", c);
             if(sep_found){
-                upper_val_string+=c;
+                upper_val_string=upper_val_string+ c;
             }
             if (!(c==range_sep) && sep_found==false) {                
-                lower_val_string+=c;
+                lower_val_string= lower_val_string + c;
             }else if (c==range_sep) {
                 sep_found=true;                
             }
@@ -74,6 +75,7 @@ std::vector<Boundary> id_boundaries() {
         lower_val_string = "";
         upper_val_string = "";
         sep_found=false;
+        k=0;
     }
     return boundaries;
 }
@@ -87,7 +89,7 @@ int main() {
     print_nl();
 
     std::vector<Boundary> bounds_info = id_boundaries();
-    printf("Map at 3 lower: %d and upper:  %d", bounds_info[0].lower, bounds_info[0].upper);
+    printf("Map at 3 lower: %d and upper:  %d", bounds_info[3].lower, bounds_info[3].upper);
     // std::cout << bounds_info.boundary_map.at("upper")[3];
     print_nl();
     // valid_values(bounds_info);
