@@ -10,8 +10,9 @@ struct Boundary {
     int lower;
 };
 
-std::map<std::string,int> ids_map;
+std::map<std::string,std::vector<int>> ids_map;
 
+using ids_info = std::map<std::string,std::vector<int>>;
 using BoundaryArray = std::vector<Boundary>;
 
 std::vector<std::string> input_arr = {
@@ -91,7 +92,7 @@ bool check_valid(int id_int, int j){
     return is_valid;
 }
 
-void valid_values(BoundaryArray boundaries_arr) {   
+ids_info valid_values(BoundaryArray boundaries_arr) {   
     int len_boundary_arr = boundaries_arr.size();
     int empty_range_pos;
     int id_int;
@@ -119,9 +120,9 @@ void valid_values(BoundaryArray boundaries_arr) {
             is_valid = check_valid(id_int, j); 
         }
         if(is_valid){
-            ids_map.at("valid")=id_int;
+            ids_map["valid"].push_back(id_int);
         }else{
-            ids_map.at("invalid")=id_int;
+            ids_map["invalid"].push_back(id_int);
         }
         empty_range_pos+=1;
     }
