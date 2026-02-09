@@ -4,7 +4,8 @@
 #include "useful_funcs.h"
 #include <iostream>
 #include <string>
-
+#include <format>
+#include <string>
 struct Boundary {
     int upper;
     int lower;
@@ -126,18 +127,31 @@ ids_info valid_values(BoundaryArray boundaries_arr) {
         }
         empty_range_pos+=1;
     }
+    return ids_map;
 }
 
 int main() {
     std::cout << "Hello day 5";
     print_nl();
-
+    // int used_len;
     std::vector<Boundary> bounds_info = id_boundaries();
-    printf("Map at 3 lower: %d and upper:  %d", bounds_info[3].lower, bounds_info[3].upper);
+    printf("Map at 3 lower: %d and upper:  %d\n", bounds_info[3].lower, bounds_info[3].upper);
     // std::cout << bounds_info.boundary_map.at("upper")[3];
     print_nl();
-    valid_values(bounds_info);
-    //  print_nl();
+    ids_info ids_map =  valid_values(bounds_info);
+    int valid_len = ids_map["valid"].size();
+    int invalid_len =ids_map["invalid"].size();
+
+    for(int i=0;i<valid_len;i++){
+          printf("ids_map.at(\"valid\")[%d]: %d\n", i, ids_map["valid"][i]);
+
+    }
+    for(int i=0;i<invalid_len;i++){
+          printf("ids_map.at(\"invalid\")[%d]: %d\n", i, ids_map["invalid"][i]);
+    }
+    
+    // printf("const char *__restrict format, ...")
+    //print_nl();
 
     return 0;
 }
