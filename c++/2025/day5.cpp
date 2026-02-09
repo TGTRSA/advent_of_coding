@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <map>
 #include <vector>
 #include "useful_funcs.h"
 #include <iostream>
@@ -7,8 +8,9 @@
 struct Boundary {
     int upper;
     int lower;
-    int sep_pos;
 };
+
+std::map<std::string,int> ids_map;
 
 using BoundaryArray = std::vector<Boundary>;
 
@@ -44,9 +46,6 @@ std::vector<Boundary> id_boundaries() {
         std::cout << "Array val is: " << arr_val << std::endl;
         
         if(arr_val==" "){
-            std::cout << "Sep pos is: " << i;
-            print_nl();
-            boundary.sep_pos = i;
             return boundaries;
         }
         printf("Size of string: %d\n", string_length);
@@ -82,8 +81,52 @@ std::vector<Boundary> id_boundaries() {
     return boundaries;
 }
 
+bool check_valid(int id_int, int j){
+    bool is_valid=false;
+    if(id_int==j){
+        is_valid=true;
+    }else{
+        ;
+    }
+    return is_valid;
+}
+
 void valid_values(BoundaryArray boundaries_arr) {
-    ;
+    
+    int len_boundary_arr = boundaries_arr.size();
+    int ranges_arr_len = input_arr.size();
+    int empty_range_pos;
+    int while_indx = 0;
+    int id_int;
+    int k = 0;
+    bool is_valid = false;
+
+    while(while_indx<input_arr.size()){
+        std::string val = input_arr[while_indx];
+        if(val==" "){   
+            // making the position ahead of the empty range
+            empty_range_pos = while_indx+1;
+            break;
+        }
+        while_indx+=1;
+    }
+
+
+    for(int i=0;i<len_boundary_arr;i++){
+        int lower_bound = boundaries_arr[i].lower;
+        int upper_bound = boundaries_arr[i].upper;
+        for(int j=lower_bound;j<upper_bound;j++){
+            std::string id = input_arr[empty_range_pos];      
+            id_int =  std::stoi(id);
+            is_valid = check_valid(id_int, j); 
+        }
+        if(is_valid){
+            ids_map.at("valid")=id_int;
+        }else{
+            ids_map.at("invalid")=id_int;
+        }
+        empty_range_pos+=1;
+    }
 }
 
 int main() {
