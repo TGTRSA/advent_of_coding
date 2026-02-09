@@ -104,7 +104,7 @@ ids_info valid_values(BoundaryArray boundaries_arr) {
         std::string val = input_arr[k];
         if(val==" "){   
             // making the position ahead of the empty range
-            printf("Sep found at: %d", k);
+            printf("Sep found at: %d\n\n", k);
             empty_range_pos = k+1;
             break;
         }
@@ -115,17 +115,24 @@ ids_info valid_values(BoundaryArray boundaries_arr) {
     for(int i=0;i<len_boundary_arr;i++){
         int lower_bound = boundaries_arr[i].lower;
         int upper_bound = boundaries_arr[i].upper;
-        for(int j=lower_bound;j<upper_bound;j++){
-            std::string id = input_arr[empty_range_pos];      
-            id_int =  std::stoi(id);
-            is_valid = check_valid(id_int, j); 
+        printf("Current lower and upper bound: %d and %d\n", lower_bound, upper_bound);
+        while(int u=0<input_arr_size){
+            for(int j=lower_bound;j<upper_bound+1;j++){
+                std::string id = input_arr[empty_range_pos];      
+                id_int =  std::stoi(id);
+                printf("  comparing %d and %d\n",  id_int,j);
+                is_valid = check_valid(id_int, j);              
+            }
+            u+=1;
+            if(is_valid){
+                ids_map["valid"].push_back(id_int);
+            }else{
+                ids_map["invalid"].push_back(id_int);
+            }
+            empty_range_pos+=1;
         }
-        if(is_valid){
-            ids_map["valid"].push_back(id_int);
-        }else{
-            ids_map["invalid"].push_back(id_int);
-        }
-        empty_range_pos+=1;
+        empty_range_pos=k+1;
+        
     }
     return ids_map;
 }
@@ -135,13 +142,13 @@ int main() {
     print_nl();
     // int used_len;
     std::vector<Boundary> bounds_info = id_boundaries();
-    printf("Map at 3 lower: %d and upper:  %d\n", bounds_info[3].lower, bounds_info[3].upper);
+    printf("Map at 3 lower: %d and upper:  %d", bounds_info[3].lower, bounds_info[3].upper);
     // std::cout << bounds_info.boundary_map.at("upper")[3];
     print_nl();
     ids_info ids_map =  valid_values(bounds_info);
     int valid_len = ids_map["valid"].size();
     int invalid_len =ids_map["invalid"].size();
-
+    print_nl();
     for(int i=0;i<valid_len;i++){
           printf("ids_map.at(\"valid\")[%d]: %d\n", i, ids_map["valid"][i]);
 
