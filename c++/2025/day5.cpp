@@ -10,6 +10,8 @@ struct Boundary {
     int sep_pos;
 };
 
+using BoundaryArray = std::vector<Boundary>;
+
 std::vector<std::string> input_arr = {
     "3-5",
     "10-14",
@@ -80,7 +82,7 @@ std::vector<Boundary> id_boundaries() {
     return boundaries;
 }
 
-void valid_values() {
+void valid_values(BoundaryArray boundaries_arr) {
     ;
 }
 
@@ -92,8 +94,8 @@ int main() {
     printf("Map at 3 lower: %d and upper:  %d", bounds_info[3].lower, bounds_info[3].upper);
     // std::cout << bounds_info.boundary_map.at("upper")[3];
     print_nl();
-    // valid_values(bounds_info);
-    // print_nl();
+    valid_values(bounds_info);
+    //  print_nl();
 
     return 0;
 }
