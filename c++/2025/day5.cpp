@@ -91,24 +91,22 @@ bool check_valid(int id_int, int j){
     return is_valid;
 }
 
-void valid_values(BoundaryArray boundaries_arr) {
-    
+void valid_values(BoundaryArray boundaries_arr) {   
     int len_boundary_arr = boundaries_arr.size();
-    int ranges_arr_len = input_arr.size();
     int empty_range_pos;
-    int while_indx = 0;
     int id_int;
     int k = 0;
     bool is_valid = false;
-
-    while(while_indx<input_arr.size()){
-        std::string val = input_arr[while_indx];
+    int input_arr_size = input_arr.size();
+    while(k<input_arr_size){
+        std::string val = input_arr[k];
         if(val==" "){   
             // making the position ahead of the empty range
-            empty_range_pos = while_indx+1;
+            printf("Sep found at: %d", k);
+            empty_range_pos = k+1;
             break;
         }
-        while_indx+=1;
+        k+=1;
     }
 
 
