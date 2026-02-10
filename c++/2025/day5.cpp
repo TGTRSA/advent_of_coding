@@ -84,7 +84,7 @@ std::vector<Boundary> id_boundaries() {
 }
 
 bool is_valid(int value, int lower_bound, int upper_bound){
-    bool is_valid;
+    
     if(value > upper_bound || value < lower_bound){                
         return false; 
     }else {
@@ -98,7 +98,7 @@ ids_info valid_values(BoundaryArray boundaries_arr) {
     int len_boundary_arr = boundaries_arr.size();
     int empty_range_pos;
     // int id_int;
-    int counter= len_boundary_arr;
+    bool not_rotten = false;
     int k = 0;
     int input_arr_size = input_arr.size();
     while(k<input_arr_size){
@@ -115,14 +115,18 @@ ids_info valid_values(BoundaryArray boundaries_arr) {
 
     for(int i=0;i<len_boundary_arr;i++){        
         int value = std::stoi(input_arr[empty_range_pos]);
-        
         for(int u=0;u<len_boundary_arr;u++){
             int lower_bound = boundaries_arr[u].lower;
             int upper_bound = boundaries_arr[u].upper;
             printf("Current lower and upper bound: %d and %d\n", lower_bound, upper_bound);
-            
-            counter-=1;
-            
+            not_rotten = is_valid(value, lower_bound,  upper_bound);
+            if(not_rotten){   
+                ids_map["valid"].push_back(value); 
+                break;
+            }
+        }
+        if(!not_rotten){
+            ids_map["invalid"].push_back(value);
         }
         empty_range_pos+=1;
         
@@ -136,18 +140,19 @@ int main() {
     // int used_len;
     std::vector<Boundary> bounds_info = id_boundaries();
     printf("Map at 3 lower: %d and upper:  %d", bounds_info[3].lower, bounds_info[3].upper);
-    // std::cout << bounds_info.boundary_map.at("upper")[3];
     print_nl();
+    
     ids_info ids_map =  valid_values(bounds_info);
     int valid_len = ids_map["valid"].size();
     int invalid_len =ids_map["invalid"].size();
     print_nl();
+    
     for(int i=0;i<valid_len;i++){
-          printf("ids_map.at(\"valid\")[%d]: %d\n", i, ids_map["valid"][i]);
+          printf("ids_map.at(\"valid\")[%d]: %d is fresh\n", i, ids_map["valid"][i]);
 
     }
     for(int i=0;i<invalid_len;i++){
-          printf("ids_map.at(\"invalid\")[%d]: %d\n", i, ids_map["invalid"][i]);
+          printf("ids_map.at(\"invalid\")[%d]: %d is spoiled\n", i, ids_map["invalid"][i]);
     }
     
     // printf("const char *__restrict format, ...")
