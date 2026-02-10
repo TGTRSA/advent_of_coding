@@ -83,11 +83,22 @@ std::vector<Boundary> id_boundaries() {
     return boundaries;
 }
 
+bool is_valid(int value, int lower_bound, int upper_bound){
+    bool is_valid;
+    if(value > upper_bound || value < lower_bound){                
+        return false; 
+    }else {
+        return true;
+    }
+
+}
+
 
 ids_info valid_values(BoundaryArray boundaries_arr) {   
     int len_boundary_arr = boundaries_arr.size();
     int empty_range_pos;
-    int id_int;
+    // int id_int;
+    int counter= len_boundary_arr;
     int k = 0;
     int input_arr_size = input_arr.size();
     while(k<input_arr_size){
@@ -109,11 +120,9 @@ ids_info valid_values(BoundaryArray boundaries_arr) {
             int lower_bound = boundaries_arr[u].lower;
             int upper_bound = boundaries_arr[u].upper;
             printf("Current lower and upper bound: %d and %d\n", lower_bound, upper_bound);
-            if(value > upper_bound || value < lower_bound){
-                ids_map["invalid"].push_back(value); 
-            }else {
-                ids_map["valid"].push_back(value);
-            }
+            
+            counter-=1;
+            
         }
         empty_range_pos+=1;
         
