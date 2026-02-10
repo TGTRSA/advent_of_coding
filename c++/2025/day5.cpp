@@ -83,22 +83,12 @@ std::vector<Boundary> id_boundaries() {
     return boundaries;
 }
 
-bool check_valid(int id_int, int j){
-    bool is_valid=false;
-    if(id_int==j){
-        is_valid=true;
-    }else{
-        ;
-    }
-    return is_valid;
-}
 
 ids_info valid_values(BoundaryArray boundaries_arr) {   
     int len_boundary_arr = boundaries_arr.size();
     int empty_range_pos;
     int id_int;
     int k = 0;
-    bool is_valid = false;
     int input_arr_size = input_arr.size();
     while(k<input_arr_size){
         std::string val = input_arr[k];
@@ -112,26 +102,20 @@ ids_info valid_values(BoundaryArray boundaries_arr) {
     }
 
 
-    for(int i=0;i<len_boundary_arr;i++){
-        int lower_bound = boundaries_arr[i].lower;
-        int upper_bound = boundaries_arr[i].upper;
-        printf("Current lower and upper bound: %d and %d\n", lower_bound, upper_bound);
-        while(int u=0<input_arr_size){
-            for(int j=lower_bound;j<upper_bound+1;j++){
-                std::string id = input_arr[empty_range_pos];      
-                id_int =  std::stoi(id);
-                printf("  comparing %d and %d\n",  id_int,j);
-                is_valid = check_valid(id_int, j);              
+    for(int i=0;i<len_boundary_arr;i++){        
+        int value = std::stoi(input_arr[empty_range_pos]);
+        
+        for(int u=0;u<len_boundary_arr;u++){
+            int lower_bound = boundaries_arr[u].lower;
+            int upper_bound = boundaries_arr[u].upper;
+            printf("Current lower and upper bound: %d and %d\n", lower_bound, upper_bound);
+            if(value > upper_bound || value < lower_bound){
+                ids_map["invalid"].push_back(value); 
+            }else {
+                ids_map["valid"].push_back(value);
             }
-            u+=1;
-            if(is_valid){
-                ids_map["valid"].push_back(id_int);
-            }else{
-                ids_map["invalid"].push_back(id_int);
-            }
-            empty_range_pos+=1;
         }
-        empty_range_pos=k+1;
+        empty_range_pos+=1;
         
     }
     return ids_map;
