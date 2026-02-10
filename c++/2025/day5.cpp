@@ -113,7 +113,7 @@ ids_info valid_values(BoundaryArray boundaries_arr) {
     }
 
 
-    for(int i=0;i<len_boundary_arr;i++){        
+    for(int i=empty_range_pos;i<input_arr_size;i++){        
         int value = std::stoi(input_arr[empty_range_pos]);
         for(int u=0;u<len_boundary_arr;u++){
             int lower_bound = boundaries_arr[u].lower;
