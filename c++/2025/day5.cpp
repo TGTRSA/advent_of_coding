@@ -4,8 +4,6 @@
 #include "useful_funcs.h"
 #include <iostream>
 #include <string>
-#include <format>
-#include <string>
 struct Boundary {
     int upper;
     int lower;
