@@ -62,16 +62,25 @@ int main() {
     }
     print_nl();
     size_t len_map = equations.size();
-    for(size_t i=0;i<len_map;i++){
-        size_t n=i+1;
-        size_t len_inner = equations.at(n).size();
+    int count = 0;
+    for(size_t i=1;i<len_map+1;i++){
+        // size_t n=i+1;
+        std::vector<int>& inner_map = equations[i];
+        size_t len_inner = inner_map.size();
         std::cout << "Len inner map: " << len_inner;
+        print_nl();
         for(size_t j=0;j<len_inner;j++){
-            std::cout << equations[i][j];
-            if (equations[i][j]==std::stoi(h_list[j])) {
+            // std::cout << "j is " << j << "\n";
+            // std::cout << inner_map[j] << ", ";
+            if (inner_map[j]==std::stoi(h_list[count])) {
+                std::cout << "Comparing: " << inner_map[j] << " and " << h_list[count] << "\n"; 
                 std::cout << "Values match";
+                count+=4;
+                break;
             }
+            
         }
+        print_nl();
     }
 
 
