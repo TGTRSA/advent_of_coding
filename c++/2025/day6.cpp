@@ -1,5 +1,6 @@
 #include <cstddef>
 #include <map>
+#include <sstream>
 #include <vector>
 #include <iostream>
 #include "useful_funcs.h"
@@ -65,41 +66,58 @@ int main() {
     print_nl();
     size_t len_map = equations.size();
     int count = 0;
+    int index=0;
+    int n;
     // matching values test
     for(size_t i=1;i<len_map+1;i++){
         // size_t n=i+1;
+        std::cout << "i: " << i << std::endl;
         std::vector<int>& inner_map = equations[i];
         size_t len_inner = inner_map.size();
         std::cout << "Len inner map: " << len_inner;
         print_nl();
+        
         for(size_t j=0;j<len_inner;j++){
-            // std::cout << "j is " << j << "\n";
-            // std::cout << inner_map[j] << ", ";
-            if (inner_map[j]==std::stoi(h_list[count])) {
-                std::cout << "Comparing: " << inner_map[j] << " and " << h_list[count] << "\n"; 
-                std::cout << "Values match";
-                count+=4;
+            std::cout << "j is " << j << "\n";
+            // std::cout << inner_map[j] << ", ";  
+            std::cout << "Counter: " << count << "\n";       
+            if(count<12){
+                std::cout << "n: " << h_list[count] << "\n";
+                n = std::stoi(h_list[count]);
+            }else{
                 break;
+            }
+            std::stringstream ss;
+            
+            printf("Comparing equations[%d][%d]: %d\n", i,j, equations[i][j]);
+            if (equations[i][j]==n) {               
+                std::cout << "Values match\n";
+                count+=4;
+                index++;
             }else {
+                // std::cout << "Comparing: " << inner_map[j] << " and " << h_list[count] << "\n"; 
                 std::cout << "VALUE DOES NOT MATCH\nEXITING..." << "\n";
                 exit(0);
             }
-            
         }
+        count=i;
         print_nl();
     }
+    printf("DONE\n");
     // grouping into equation
-    int type=0;
     std::string plus = "+";
     std::string multiply = "*";
     std::vector<int> results;
     int result;
-    for(size_t i=1;i<len_map+2;i++){
+    for(size_t i=1;i<len_map+1;i++){
         std::string operation = operations[i-1];
-        
-        for(size_t j=0;j<len_map+1;j++){
+        std::vector<int>& inner_map = equations[i];
+        size_t len_inner = inner_map.size();
+        std::cout << "Operation: " << operation << "\n";
+        for(size_t j=0;j<len_inner;j++){
             int value = equations[i][j];
-            if(i==1){
+            std::cout << "Value: " << value << "\n";
+            if(j==0){
                 result = value;
             }else{
                 if (operation==plus) {
@@ -108,12 +126,21 @@ int main() {
                     result = result * value;
                 }
             }
+            printf("Result: %d\n", result);
+
         }
         results.push_back(result);
         result=0;
     }
     // comparing results with the answers
-    
+    size_t n_results = results.size();
+    for(size_t i=0;i<n_results;i++){
+        if(results[i]==answers[i]){
+            printf("Match\n");
+        }else{
+            printf("No match\n");
+        }
+    }
 
 
 }
