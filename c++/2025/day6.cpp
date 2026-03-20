@@ -12,7 +12,7 @@ std::vector<std::string> h_list = {
     "6","98",  "215", "314",
     "*",  "+",   "*",   "+"
 };
-std::vector<int> answers={33210,490, 424355,401};
+std::vector<int> answers={33210,490, 4243455,401};
 
 
 std::map<int, std::vector<int>> equations;
@@ -126,15 +126,15 @@ int main() {
                     result = result * value;
                 }
             }
-            printf("Result: %d\n", result);
-
         }
+        printf("Result: %d\n", result);
         results.push_back(result);
         result=0;
     }
     // comparing results with the answers
     size_t n_results = results.size();
     for(size_t i=0;i<n_results;i++){
+        printf("Comparing %d and %d\n", results[i], answers[i]);
         if(results[i]==answers[i]){
             printf("Match\n");
         }else{
