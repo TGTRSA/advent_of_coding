@@ -14,6 +14,7 @@ std::vector<std::string> h_list = {
 };
 std::vector<int> answers={33210,490, 4243455,401};
 
+int grand_total =4277556; 
 
 std::map<int, std::vector<int>> equations;
 
@@ -109,6 +110,7 @@ int main() {
     std::string multiply = "*";
     std::vector<int> results;
     int result;
+    // commiting calculations needed
     for(size_t i=1;i<len_map+1;i++){
         std::string operation = operations[i-1];
         std::vector<int>& inner_map = equations[i];
@@ -133,14 +135,17 @@ int main() {
     }
     // comparing results with the answers
     size_t n_results = results.size();
+    int final = 0;
     for(size_t i=0;i<n_results;i++){
         printf("Comparing %d and %d\n", results[i], answers[i]);
         if(results[i]==answers[i]){
             printf("Match\n");
+            final+=results[i];
         }else{
             printf("No match\n");
         }
     }
-
-
+    if(final==grand_total){
+        printf("ALL TESTS SUCCESSFUL\nDAY 6 complete");
+    }
 }
